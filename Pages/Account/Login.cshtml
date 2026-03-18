@@ -1,0 +1,61 @@
+@page
+@model QueryBot.Pages.Account.LoginModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>queryBot — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="~/styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <div class="blob blob-left"></div>
+    <div class="blob blob-right"></div>
+
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 16c0-5.5 4.5-10 10-10h28c3.2 0 5.8 2.6 5.8 5.8v21.9c0 3.2-2.6 5.8-5.8 5.8H27L16 50.2c-2.5 2.4-6.6.6-6.6-2.9v-9.9A9.8 9.8 0 0 1 4 28.9V16h6z" fill="#ff8b18" />
+            <path d="M20 17h21" stroke="#fff" stroke-width="4.4" stroke-linecap="round" />
+            <path d="M20 26h17" stroke="#fff" stroke-width="4.4" stroke-linecap="round" />
+            <path d="M20 35h13" stroke="#fff" stroke-width="4.4" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="brand-text"><span class="brand-dark">query</span><span class="brand-accent">Bot</span></span>
+      </a>
+    </header>
+
+    <main class="login-main">
+      <div class="login-card">
+        <h1>Sign In</h1>
+        <form method="post">
+          <div class="login-fields">
+            <div>
+              <label asp-for="Input.Email">Email</label>
+              <input asp-for="Input.Email" type="email" placeholder="your@email.com" autocomplete="username" autofocus />
+            </div>
+            <div>
+              <label asp-for="Input.Password">Password</label>
+              <input asp-for="Input.Password" type="password" placeholder="Password" autocomplete="current-password" />
+            </div>
+          </div>
+          @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+          {
+            <div class="login-error">@Model.ErrorMessage</div>
+          }
+          <button class="btn btn-main login-submit" type="submit">Sign In <span aria-hidden="true">→</span></button>
+        </form>
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>
