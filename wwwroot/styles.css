@@ -508,3 +508,44 @@ img{max-width:100%;display:block}
 .dashboard-shell {
   grid-template-rows: auto 1fr;
 }
+
+/* ---- Signup form additions ---- */
+.signup-form input:focus {
+  outline: none;
+  border-color: var(--orange);
+  transition: border-color .15s;
+}
+
+.btn-main:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.signup-error {
+  margin: 0;
+  font-size: 14px;
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.signup-success {
+  margin-top: clamp(14px, 1.8vh, 20px);
+  max-width: 420px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(40, 167, 69, .08);
+  border: 1px solid rgba(40, 167, 69, .25);
+  color: #1a6e2e;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.signup-success p {
+  margin: 0;
+}
+
+.h-captcha {
+  margin-top: 4px;
+}

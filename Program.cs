@@ -27,6 +27,9 @@ builder.Services
         options.AccessDeniedPath = "/Account/Login";
     });
 
+// ---- HTTP client for QuexPlatform proxy ----
+builder.Services.AddHttpClient();
+
 // ---- Razor Pages with default authorization ----
 builder.Services.AddRazorPages(options =>
 {
@@ -72,5 +75,31 @@ app.MapGet("/", context =>
 });
 
 app.MapRazorPages();
+
+// Serves the hCaptcha site key (and dev mode flag) to the static signup page
+app.MapGet("/querybot-config.js", (IConfiguration config, IHostEnvironment env) =>
+{
+    var siteKey = config["Captcha:SiteKey"] ?? string.Empty;
+    var devMode = env.IsDevelopment() ? "true" : "false";
+    return Results.Content(
+        $"window.QueryBotConfig = {{ captchaSiteKey: \"{siteKey}\", devMode: {devMode} }};",
+        "application/javascript");
+});
+
+// Proxies signup submissions to QuexPlatform to avoid cross-origin issues in dev
+app.MapPost("/signup", async (HttpRequest req, IHttpClientFactory httpClientFactory, IConfiguration config, CancellationToken ct) =>
+{
+    var baseUrl = config["QuexPlatform:BaseUrl"]
+        ?? throw new InvalidOperationException("QuexPlatform:BaseUrl is not configured.");
+
+    using var reader = new StreamReader(req.Body);
+    var json = await reader.ReadToEndAsync(ct);
+
+    var client = httpClientFactory.CreateClient();
+    using var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+    var upstream = await client.PostAsync($"{baseUrl}/querybot/signup", content, ct);
+
+    return upstream.IsSuccessStatusCode ? Results.Ok() : Results.StatusCode((int)upstream.StatusCode);
+});
 
 app.Run();

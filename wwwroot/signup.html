@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -32,7 +32,7 @@
                 <a href="#">About Us</a>
                 <a href="#">Products</a>
                 <a href="#">Pricing</a>
-                <a href="/Account/Login">Sign In</a>
+                <a href="Account/Login">Sign In</a>
                 <a href="#">Contact Us</a>
             </nav>
         </header>
@@ -48,14 +48,30 @@
                     We only collect the minimum data required so we just need:
                 </p>
 
-                <div class="signup-form">
+                <div id="signupForm" class="signup-form">
                     <label for="email">Your email address:</label>
-                    <input type="email" id="email" name="email" placeholder="e.g. jane.smith@example.com" />
+                    <input type="email" id="email" name="email" placeholder="e.g. jane.smith@example.com" autocomplete="email" />
 
                     <label for="displayName">How you like to be referred to:</label>
-                    <input type="text" id="displayName" name="displayName" placeholder="e.g. Jane" />
+                    <input type="text" id="displayName" name="displayName" placeholder="e.g. Jane" autocomplete="nickname" />
 
-                    <a class="btn btn-main" href="#">Sign Me Up <span aria-hidden="true">→</span></a>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" autocomplete="new-password" />
+
+                    <label for="confirmPassword">Confirm password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" />
+
+                    <div id="captchaWidget"></div>
+
+                    <p id="signupStatus" class="signup-error" style="display:none" aria-live="polite"></p>
+
+                    <button type="button" id="signupBtn" class="btn btn-main" disabled>
+                        Sign Me Up <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+
+                <div id="signupSuccess" class="signup-success" style="display:none">
+                    <p>Thanks for signing up! Check your inbox for a verification email.</p>
                 </div>
             </section>
 
@@ -91,5 +107,9 @@
             </div>
         </section>
     </div>
+
+    <script src="querybot-config.js"></script>
+    <script src="signup.js"></script>
+    <script src="https://js.hcaptcha.com/1/api.js?render=explicit&onload=onHcaptchaLoad" async></script>
 </body>
 </html>
