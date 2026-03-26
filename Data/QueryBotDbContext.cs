@@ -43,6 +43,9 @@ public sealed class QueryBotDbContext : DbContext
                 .HasMaxLength(50)
                 .IsRequired();
 
+            entity.Property(x => x.ClientId)
+                .HasColumnName("client_id");
+
             entity.Property(x => x.CreatedUtc)
                 .HasColumnName("created_utc")
                 .IsRequired();

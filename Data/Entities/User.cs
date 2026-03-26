@@ -18,6 +18,11 @@ public sealed class User
     /// </summary>
     public string System { get; set; } = null!;
 
+    /// <summary>
+    /// The platform client id associated with this QueryBot user. Null for legacy rows.
+    /// </summary>
+    public long? ClientId { get; set; }
+
     public DateTime CreatedUtc { get; set; }
 
     public DateTime UpdatedUtc { get; set; }

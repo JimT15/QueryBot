@@ -78,7 +78,15 @@ QueryBot users are created and activated entirely through the QuexPlatform API a
 Inbound document submission:
 - User emails a document to their personalised address.
 - Postmark delivers to `POST /webhooks/inbound-email` (QuexPlatform API).
-- QuexPlatform creates `QBDocRequest` jobs, processes the attachment, and sends the completed document back via `QBDocResponse`.
+- QuexPlatform creates a `QBDocRequest` parent job and one `QBRequestDocUpload` child job per attachment.
+- Per-attachment processing chain: `QBRequestDocUpload → IdentifyPrompts → GenerateAnswers → CompleteDocument → QBRequestDocEmail`.
+- `QBRequestDocEmail` fetches the assembled file from DocumentHandler and emails it back to the user as an attachment.
+- **Only `.docx` and `.xlsx` attachments are supported end-to-end.** PDF, `.txt`, and other formats are not supported — the pipeline uses Word/Excel COM automation and will fail on unsupported types.
+
+Dashboard model-doc training:
+- User uploads a model document via the dashboard.
+- Processing chain: `QBTrainAI → QBModelDocUpload → ExtractLibraryDocContent → ChunkDocument`.
+- `QBTrainAIEmail` sends a confirmation email to the user when training (chunking) completes.
 
 This app has no involvement in the email or document processing pipeline — it only provides the authenticated dashboard UI.
 

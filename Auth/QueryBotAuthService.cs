@@ -16,10 +16,10 @@ public sealed class QueryBotAuthService
     }
 
     /// <summary>
-    /// Returns (Email, Nickname) if the credentials are valid for system="querybot".
+    /// Returns (Email, Nickname, ClientId) if the credentials are valid for system="querybot".
     /// Returns null if not found or password is incorrect.
     /// </summary>
-    public async Task<(string Email, string Nickname)?> AuthenticateAsync(
+    public async Task<(string Email, string Nickname, long? ClientId)?> AuthenticateAsync(
         string email,
         string password,
         CancellationToken ct = default)
@@ -36,6 +36,6 @@ public sealed class QueryBotAuthService
         if (!_passwordHasher.VerifyPassword(password, user.Password))
             return null;
 
-        return (user.Email, user.Nickname);
+        return (user.Email, user.Nickname, user.ClientId);
     }
 }

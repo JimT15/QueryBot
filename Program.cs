@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using QueryBot.Auth;
+using QueryBot.Configuration;
 using QueryBot.Data;
 using QueryBot.Security;
 
@@ -27,8 +28,23 @@ builder.Services
         options.AccessDeniedPath = "/Account/Login";
     });
 
-// ---- HTTP client for QuexPlatform proxy ----
+// ---- QueryBot settings ----
+builder.Services.Configure<QueryBotSettings>(builder.Configuration.GetSection("QueryBot"));
+
+// ---- HTTP clients ----
 builder.Services.AddHttpClient();
+
+// Named client used by DashboardModel to create QBModelDocUpload jobs
+builder.Services.AddHttpClient("QuexPlatform", (sp, http) =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    var baseUrl = config["QuexPlatform:BaseUrl"]
+        ?? throw new InvalidOperationException("QuexPlatform:BaseUrl is not configured.");
+    var apiKey = config["QuexPlatform:ApiKey"]
+        ?? throw new InvalidOperationException("QuexPlatform:ApiKey is not configured.");
+    http.BaseAddress = new Uri(baseUrl.TrimEnd('/') + "/");
+    http.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+});
 
 // ---- Razor Pages with default authorization ----
 builder.Services.AddRazorPages(options =>

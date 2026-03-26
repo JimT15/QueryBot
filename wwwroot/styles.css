@@ -549,3 +549,212 @@ img{max-width:100%;display:block}
 .h-captcha {
   margin-top: 4px;
 }
+
+/* ---- Upload panel ---- */
+.upload-panel {
+  margin-top: clamp(20px, 2.6vh, 32px);
+  padding: clamp(20px, 2.4vw, 30px) clamp(20px, 2.4vw, 30px);
+  background: rgba(232,234,240,.62);
+  border: 1.5px dashed #c2c8d8;
+  border-radius: 20px;
+  text-align: center;
+  transition: background .15s, border-color .15s;
+}
+
+.upload-panel.drop-hover {
+  background: rgba(255,186,102,.10);
+  border-color: var(--orange);
+}
+
+.upload-desc {
+  margin: 0 0 18px;
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 46ch;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 18px;
+}
+
+.upload-drop-text {
+  margin: 0 0 6px;
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.upload-size-hint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #829ab1;
+}
+
+.upload-or {
+  margin: 0 0 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #829ab1;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.btn-upload {
+  min-width: 120px;
+  height: 44px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 0 22px;
+  border: none;
+  cursor: pointer;
+}
+
+.upload-drag-error {
+  margin: 12px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c0392b;
+}
+
+/* ---- Upload feedback messages ---- */
+.upload-feedback {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.upload-success {
+  background: rgba(40,167,69,.08);
+  border: 1px solid rgba(40,167,69,.25);
+  color: #1a6e2e;
+}
+
+.upload-error {
+  background: rgba(192,57,43,.07);
+  border: 1px solid rgba(192,57,43,.22);
+  color: #c0392b;
+}
+
+/* ---- Modal ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(22,40,75,.38);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal-dialog {
+  width: min(440px, 100%);
+  background: var(--panel1);
+  border-radius: 24px;
+  padding: clamp(24px, 3vw, 36px) clamp(24px, 3vw, 36px);
+  box-shadow: 0 24px 56px rgba(22,40,75,.18);
+}
+
+.modal-title {
+  margin: 0 0 20px;
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  color: var(--ink);
+}
+
+.modal-choose-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px dashed #c2c8d8;
+  border-radius: 14px;
+  background: rgba(232,234,240,.5);
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.modal-choose-label:hover {
+  border-color: var(--orange);
+  background: rgba(255,186,102,.08);
+}
+
+.modal-choose-label svg {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  color: var(--orange);
+}
+
+.modal-size-note {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #829ab1;
+}
+
+.modal-error {
+  margin: 10px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c0392b;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.modal-btn-cancel {
+  padding: 0 20px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1.5px solid var(--softLine);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+
+.modal-btn-cancel:hover {
+  border-color: #9aa5bc;
+  color: var(--ink);
+}
+
+.modal-btn-upload {
+  padding: 0 22px;
+  height: 42px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(180deg, var(--orange), var(--orangeDeep));
+  box-shadow: 0 8px 18px rgba(255,127,28,.22);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+
+.modal-btn-upload:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+}

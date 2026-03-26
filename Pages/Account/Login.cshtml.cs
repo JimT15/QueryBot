@@ -52,6 +52,9 @@ public sealed class LoginModel : PageModel
             new(ClaimTypes.Email, result.Value.Email),
         };
 
+        if (result.Value.ClientId.HasValue)
+            claims.Add(new Claim("ClientId", result.Value.ClientId.Value.ToString()));
+
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
